@@ -30,7 +30,7 @@ type zipfileMatcher struct {
 // Match implements types.GomegaMatcher.
 func (z *zipfileMatcher) Match(actual any) (success bool, err error) {
 	if err = z.isActualZip(actual); err != nil {
-		return false, err
+		return false, nil
 	}
 
 	if len(z.expectedEntries) > 0 {
@@ -40,7 +40,7 @@ func (z *zipfileMatcher) Match(actual any) (success bool, err error) {
 
 		for _, e := range z.expectedEntries {
 			if !slices.Contains(entries, e) {
-				return false, fmt.Errorf("zip file does not contain expected entry %s", e)
+				return false, nil
 			}
 		}
 	}
